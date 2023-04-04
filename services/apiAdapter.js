@@ -1,9 +1,13 @@
 const axios = require("axios");
 const { axios_timeout } = require("../config/env");
 
-module.exports = (baseUrl) => {
-  return axios.create({
-    baseUrl,
-    timeout: parseInt(axios_timeout),
+const callAPI = (method, url, path, data) => {
+  return axios({
+    method,
+    url: `${url}${path}`,
+    data,
+    timeout: axios_timeout,
   });
 };
+
+module.exports = callAPI;

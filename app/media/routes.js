@@ -1,9 +1,10 @@
 var express = require("express");
+const create = require("./handler/create");
 var router = express.Router();
 
-/* GET home page. */
-router.get("/", function (req, res, next) {
-  res.send("media");
-});
+// router.get("/", function (req, res, next) {
+//   res.send("respond with a resource");
+// });
+router.post("/", create);
 
 module.exports = router;

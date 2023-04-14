@@ -18,9 +18,12 @@ app.use(express.urlencoded({ extended: false, limit: "50mb" }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// auth
+const auth = require("./middleware/auth");
+
 // url routes
 app.use("/users", usersRouter);
-app.use("/courses", coursesRouter);
+app.use("/courses", auth, coursesRouter);
 app.use("/media", mediaRouter);
 app.use("/orders", ordersRouter);
 app.use("/payments", paymentsRouter);

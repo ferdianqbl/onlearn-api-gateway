@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
     );
 
     if (!user) throw new Error("User not found");
-    console.log(user.data);
+
     req.user = user.data;
     req.token = token;
 

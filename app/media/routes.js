@@ -1,6 +1,6 @@
-var express = require("express");
+const express = require("express");
 const { getAll, create, destroy } = require("./handler");
-var router = express.Router();
+const router = express.Router();
 
 router.get("/", getAll);
 router.post("/", create);

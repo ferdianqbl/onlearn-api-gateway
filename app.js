@@ -11,6 +11,7 @@ const mediaRouter = require("./app/media/routes");
 const ordersRouter = require("./app/orders/routes");
 const paymentsRouter = require("./app/payments/routes");
 const usersRouter = require("./app/users/routes");
+const refreshTokensRouter = require("./app/refreshTokens/routes");
 
 app.use(logger("dev"));
 app.use(express.json({ limit: "50mb" }));
@@ -27,5 +28,6 @@ app.use("/courses", auth, coursesRouter);
 app.use("/media", mediaRouter);
 app.use("/orders", ordersRouter);
 app.use("/payments", paymentsRouter);
+app.use("/tokens", refreshTokensRouter);
 
 module.exports = app;

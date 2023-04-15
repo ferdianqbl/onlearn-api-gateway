@@ -4,7 +4,6 @@ const callAPI = require("../../../services/apiAdapter");
 module.exports = async (req, res, next) => {
   try {
     const { id } = req.user.data;
-    console.log(id);
 
     const updatedUser = await callAPI(
       "PUT",

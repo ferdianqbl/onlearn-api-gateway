@@ -4,7 +4,7 @@ const callAPI = require("../../../services/apiAdapter");
 module.exports = async (req, res, next) => {
   try {
     const { id } = req.user.data;
-    console.log(id);
+
     await callAPI("POST", url_service_user, `/users/logout`, {
       user_id: id,
     });

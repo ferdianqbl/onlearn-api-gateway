@@ -4,8 +4,9 @@ const callAPI = require("../../../services/apiAdapter");
 module.exports = async (req, res, next) => {
   try {
     const { id } = req.user.data;
+    console.log({ id });
 
-    const user = await callAPI("GET", url_service_user, `/users/${id}`);
+    const user = await callAPI("DELETE", url_service_user, `/users/${id}`);
 
     return res.status(200).json(user.data);
   } catch (error) {

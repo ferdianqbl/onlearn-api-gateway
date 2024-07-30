@@ -4,7 +4,6 @@ const callAPI = require("../../../services/apiAdapter");
 module.exports = async (req, res, next) => {
   try {
     const { id } = req.user.data;
-
     const updatedUser = await callAPI(
       "PUT",
       url_service_user,
@@ -12,11 +11,7 @@ module.exports = async (req, res, next) => {
       req.body
     );
 
-    return res.status(200).json({
-      status: 1,
-      message: "User updated",
-      data: updatedUser.data,
-    });
+    return res.status(200).json(updatedUser.data);
   } catch (error) {
     if (error.code === "ECONNREFUSED" || error.code === "ECONNRESET") {
       return res

@@ -10,9 +10,7 @@ module.exports = async (req, res, next) => {
     return res.status(200).json(user.data);
   } catch (error) {
     if (error.code === "ECONNREFUSED" || error.code === "ECONNRESET") {
-      return res
-        .status(500)
-        .json({ status: 1, message: "Service unavailable" });
+      return res.status(500).json({ error: 1, message: "Service unavailable" });
     }
 
     if (error.response) {
@@ -20,6 +18,6 @@ module.exports = async (req, res, next) => {
       return res.status(status).json(data);
     }
 
-    return res.status(500).json({ status: 1, message: error.message });
+    return res.status(500).json({ error: 1, message: error.message });
   }
 };

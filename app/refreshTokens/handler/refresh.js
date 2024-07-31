@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
     const { refreshToken, email } = req.body;
 
     if (!refreshToken || !email)
-      return res.status(400).json({ status: 1, message: "Invalid Token" });
+      return res.status(400).json({ error: 1, message: "Invalid Token" });
 
     await callAPI(
       "GET",
@@ -27,7 +27,7 @@ module.exports = async (req, res, next) => {
     jwt.verify(refreshToken, secret_refresh_token, (err, decoded) => {
       if (err)
         return res.status(403).json({
-          status: 1,
+          error: 1,
           message: err.message,
         });
 
@@ -47,7 +47,7 @@ module.exports = async (req, res, next) => {
 
       if (email !== decoded.data.email)
         return res.status(400).json({
-          status: 1,
+          error: 1,
           message: "Email is not valid",
         });
 
@@ -56,16 +56,14 @@ module.exports = async (req, res, next) => {
       });
 
       return res.status(200).json({
-        status: 0,
+        error: 0,
         message: "Token refreshed",
         data: { token: newToken },
       });
     });
   } catch (error) {
     if (error.code === "ECONNREFUSED" || error.code === "ECONNRESET") {
-      return res
-        .status(500)
-        .json({ status: 1, message: "Service unavailable" });
+      return res.status(500).json({ error: 1, message: "Service unavailable" });
     }
 
     if (error.response) {
@@ -73,7 +71,7 @@ module.exports = async (req, res, next) => {
       return res.status(status).json(data);
     }
 
-    return res.status(500).json({ status: 1, message: error.message });
+    return res.status(500).json({ error: 1, message: error.message });
   }
 };
 

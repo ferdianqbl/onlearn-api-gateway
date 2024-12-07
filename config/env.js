@@ -5,6 +5,7 @@ module.exports = {
   axios_timeout: process.env.AXIOS_TIMEOUT,
   url_service_media: process.env.URL_SERVICE_MEDIA || "localhost:8080",
   url_service_user: process.env.URL_SERVICE_USER || "localhost:5000",
+  url_service_course: process.env.URL_SERVICE_COURSE || "localhost:8000",
   jsonWebToken: {
     secret: process.env.JWT_SECRET,
     secret_refresh_token: process.env.JWT_SECRET_REFRESH_TOKEN,

@@ -8,7 +8,6 @@ const callAPI = require("../services/apiAdapter");
 module.exports = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-
     const data = jwt.verify(token, secret);
     const user = await callAPI(
       "GET",

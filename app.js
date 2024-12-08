@@ -7,6 +7,7 @@ const app = express();
 
 // routes
 const coursesRouter = require("./app/courses/routes");
+const mentorsRouter = require("./app/mentors/routes");
 const mediaRouter = require("./app/media/routes");
 const ordersRouter = require("./app/orders/routes");
 const paymentsRouter = require("./app/payments/routes");
@@ -25,6 +26,7 @@ const auth = require("./middleware/auth");
 // url routes
 app.use("/users", usersRouter);
 app.use("/courses", auth, coursesRouter);
+app.use("/mentors", mentorsRouter);
 app.use("/media", mediaRouter);
 app.use("/orders", ordersRouter);
 app.use("/payments", paymentsRouter);

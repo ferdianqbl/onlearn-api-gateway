@@ -3,12 +3,18 @@ const callAPI = require("../../../services/apiAdapter");
 
 module.exports = async (req, res, next) => {
   try {
+    const { role } = req.user.data;
+
+    if (role !== "admin")
+      return res.status(403).json({ error: 1, message: "Unauthorized" });
+
     const mentor = await callAPI(
       "POST",
       url_service_course,
       `/mentors`,
       req.body
     );
+
     return res.status(200).json(mentor.data);
   } catch (error) {
     if (error.code === "ECONNREFUSED" || error.code === "ECONNRESET") {

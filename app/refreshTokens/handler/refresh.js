@@ -18,11 +18,11 @@ module.exports = async (req, res, next) => {
     if (!refreshToken || !email)
       return res.status(400).json({ error: 1, message: "Invalid Token" });
 
-    await callAPI(
-      "GET",
-      url_service_user,
-      `/tokens/?refreshToken=${refreshToken}`
-    );
+    await callAPI({
+      method: "GET",
+      url: url_service_user,
+      path: `/tokens/?refreshToken=${refreshToken}`,
+    });
 
     jwt.verify(refreshToken, secret_refresh_token, (err, decoded) => {
       if (err)

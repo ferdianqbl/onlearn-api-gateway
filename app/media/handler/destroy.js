@@ -3,11 +3,11 @@ const callAPI = require("../../../services/apiAdapter");
 
 module.exports = async (req, res, next) => {
   try {
-    const media = await callAPI(
-      "DELETE",
-      url_service_media,
-      `/media/${req.params.id}`
-    );
+    const media = await callAPI({
+      method: "DELETE",
+      url: url_service_media,
+      path: `/media/${req.params.id}`,
+    });
 
     return res.status(200).json(media.data);
   } catch (error) {

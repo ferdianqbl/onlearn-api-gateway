@@ -3,7 +3,11 @@ const callAPI = require("../../../services/apiAdapter");
 
 module.exports = async (req, res, next) => {
   try {
-    const media = await callAPI("GET", url_service_media, "/media");
+    const media = await callAPI({
+      method: "GET",
+      url: url_service_media,
+      path: "/media",
+    });
 
     return res.status(200).json(media.data);
   } catch (error) {

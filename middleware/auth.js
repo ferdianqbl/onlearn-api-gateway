@@ -9,11 +9,11 @@ module.exports = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
     const data = jwt.verify(token, secret);
-    const user = await callAPI(
-      "GET",
-      url_service_user,
-      `/users/${data.data.id}`
-    );
+    const user = await callAPI({
+      method: "GET",
+      url: url_service_user,
+      path: `/users/${data.data.id}`,
+    });
 
     if (!user) throw new Error("User not found");
 

@@ -3,12 +3,12 @@ const callAPI = require("../../../services/apiAdapter");
 
 module.exports = async (req, res, next) => {
   try {
-    const user = await callAPI(
-      "POST",
-      url_service_user,
-      "/users/register",
-      req.body
-    );
+    const user = await callAPI({
+      method: "POST",
+      url: url_service_user,
+      path: "/users/register",
+      data: req.body,
+    });
 
     return res.status(200).json(user.data);
   } catch (error) {

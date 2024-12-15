@@ -1,12 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const { getAll } = require("./controller");
 
-/* GET home page. */
-router.get("/", function (req, res, next) {
-  res.send({
-    user: req.user,
-    token: req.token,
-  });
-});
+router.get("/", getAll);
 
 module.exports = router;

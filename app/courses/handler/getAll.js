@@ -3,13 +3,12 @@ const callAPI = require("../../../services/apiAdapter");
 
 module.exports = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const mentors = await callAPI({
+    const courses = await callAPI({
       method: "GET",
       url: url_service_course,
-      path: `/mentors/${id}`,
+      path: "/courses",
     });
-    return res.status(200).json(mentors.data);
+    return res.status(200).json(courses.data);
   } catch (error) {
     if (error.code === "ECONNREFUSED" || error.code === "ECONNRESET") {
       return res.status(500).json({ error: 1, message: "Service unavailable" });

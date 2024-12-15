@@ -3,13 +3,19 @@ const callAPI = require("../../../services/apiAdapter");
 
 module.exports = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const mentors = await callAPI({
-      method: "GET",
+    const { role } = req.user.data;
+
+    if (role !== "admin")
+      return res.status(403).json({ error: 1, message: "Unauthorized" });
+
+    const mentor = await callAPI({
+      method: "POST",
       url: url_service_course,
-      path: `/mentors/${id}`,
+      path: `/courses`,
+      data: req.body,
     });
-    return res.status(200).json(mentors.data);
+
+    return res.status(200).json(mentor.data);
   } catch (error) {
     if (error.code === "ECONNREFUSED" || error.code === "ECONNRESET") {
       return res.status(500).json({ error: 1, message: "Service unavailable" });

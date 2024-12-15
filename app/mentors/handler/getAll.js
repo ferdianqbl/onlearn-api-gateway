@@ -3,7 +3,11 @@ const callAPI = require("../../../services/apiAdapter");
 
 module.exports = async (req, res, next) => {
   try {
-    const mentors = await callAPI("GET", url_service_course, "/mentors");
+    const mentors = await callAPI({
+      method: "GET",
+      url: url_service_course,
+      path: "/mentors",
+    });
     return res.status(200).json(mentors.data);
   } catch (error) {
     if (error.code === "ECONNREFUSED" || error.code === "ECONNRESET") {

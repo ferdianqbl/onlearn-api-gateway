@@ -8,12 +8,12 @@ module.exports = async (req, res, next) => {
     if (role !== "admin")
       return res.status(403).json({ error: 1, message: "Unauthorized" });
 
-    const mentor = await callAPI(
-      "POST",
-      url_service_course,
-      `/mentors`,
-      req.body
-    );
+    const mentor = await callAPI({
+      method: "POST",
+      url: url_service_course,
+      path: `/mentors`,
+      data: req.body,
+    });
 
     return res.status(200).json(mentor.data);
   } catch (error) {

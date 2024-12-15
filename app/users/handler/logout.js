@@ -5,8 +5,13 @@ module.exports = async (req, res, next) => {
   try {
     const { id } = req.user.data;
 
-    await callAPI("POST", url_service_user, `/users/logout`, {
-      user_id: id,
+    await callAPI({
+      method: "POST",
+      url: url_service_user,
+      path: `/users/logout`,
+      data: {
+        user_id: id,
+      },
     });
 
     return res.status(200).json({

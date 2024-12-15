@@ -13,12 +13,12 @@ const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res, next) => {
   try {
-    const user = await callAPI(
-      "POST",
-      url_service_user,
-      "/users/login",
-      req.body
-    );
+    const user = await callAPI({
+      method: "POST",
+      url: url_service_user,
+      path: "/users/login",
+      data: req.body,
+    });
 
     const { data } = user.data;
     const token = jwt.sign({ data }, secret, {
@@ -28,9 +28,14 @@ module.exports = async (req, res, next) => {
       expiresIn: refresh_token_expired,
     });
 
-    await callAPI("POST", url_service_user, "/tokens", {
-      user_id: data.id,
-      token: refresh_token,
+    await callAPI({
+      method: "POST",
+      url: url_service_user,
+      path: "/tokens",
+      data: {
+        user_id: data.id,
+        token: refresh_token,
+      },
     });
 
     return res.status(200).json({

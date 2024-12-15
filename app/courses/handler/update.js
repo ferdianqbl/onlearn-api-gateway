@@ -10,14 +10,14 @@ module.exports = async (req, res, next) => {
 
     const { id } = req.params;
 
-    const mentor = await callAPI({
+    const course = await callAPI({
       method: "PUT",
       url: url_service_course,
-      path: `/mentors/${id}`,
+      path: `/courses/${id}`,
       data: req.body,
     });
 
-    return res.status(200).json(mentor.data);
+    return res.status(200).json(course.data);
   } catch (error) {
     if (error.code === "ECONNREFUSED" || error.code === "ECONNRESET") {
       return res.status(500).json({ error: 1, message: "Service unavailable" });

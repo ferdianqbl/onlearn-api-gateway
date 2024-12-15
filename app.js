@@ -23,13 +23,15 @@ app.use(express.static(path.join(__dirname, "public")));
 // auth
 const auth = require("./middleware/auth");
 
-// url routes
+// public url routes
 app.use("/users", usersRouter);
-app.use("/courses", auth, coursesRouter);
-app.use("/mentors", mentorsRouter);
 app.use("/media", mediaRouter);
 app.use("/orders", ordersRouter);
 app.use("/payments", paymentsRouter);
 app.use("/tokens", refreshTokensRouter);
+
+// auth url routes
+app.use("/courses", auth, coursesRouter);
+app.use("/mentors", auth, mentorsRouter);
 
 module.exports = app;

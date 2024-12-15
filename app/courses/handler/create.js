@@ -3,6 +3,11 @@ const callAPI = require("../../../services/apiAdapter");
 
 module.exports = async (req, res, next) => {
   try {
+    const { role } = req.user.data;
+
+    if (role !== "admin")
+      return res.status(403).json({ error: 1, message: "Unauthorized" });
+
     const course = await callAPI({
       method: "POST",
       url: url_service_course,

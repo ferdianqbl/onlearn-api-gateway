@@ -29,9 +29,9 @@ app.use("/media", mediaRouter);
 app.use("/orders", ordersRouter);
 app.use("/payments", paymentsRouter);
 app.use("/tokens", refreshTokensRouter);
+app.use("/courses", coursesRouter);
 
 // auth url routes
-app.use("/courses", auth, coursesRouter);
 app.use("/mentors", auth, mentorsRouter);
 
 module.exports = app;

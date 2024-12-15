@@ -7,6 +7,7 @@ module.exports = async (req, res, next) => {
       method: "GET",
       url: url_service_course,
       path: "/courses",
+      params: req.query,
     });
     return res.status(200).json(courses.data);
   } catch (error) {

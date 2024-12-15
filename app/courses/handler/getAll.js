@@ -1,4 +1,4 @@
-const { url_service_course } = require("../../../config/env");
+const { url_service_course, url_api_gateway } = require("../../../config/env");
 const callAPI = require("../../../services/apiAdapter");
 
 module.exports = async (req, res, next) => {
@@ -7,8 +7,34 @@ module.exports = async (req, res, next) => {
       method: "GET",
       url: url_service_course,
       path: "/courses",
-      params: req.query,
+      params: { ...req.query },
     });
+
+    const coursesData = courses.data.data;
+
+    const firstPage = coursesData.first_page_url.split("?").pop();
+    const lastPage = coursesData.last_page_url.split("?").pop();
+    const nextPage = coursesData.next_page_url
+      ? coursesData.next_page_url.split("?").pop()
+      : null;
+    const prevPage = coursesData.prev_page_url
+      ? coursesData.prev_page_url.split("?").pop()
+      : null;
+    const links = coursesData.links.map((link) => {
+      const url = link.url ? link.url.split("?").pop() : null;
+      return { ...link, url: url ? `${url_api_gateway}/courses?${url}` : null };
+    });
+
+    courses.data.data = {
+      ...coursesData,
+      first_page_url: `${url_api_gateway}/courses?${firstPage}`,
+      last_page_url: `${url_api_gateway}/courses?${lastPage}`,
+      next_page_url: nextPage ? `${url_api_gateway}/courses?${nextPage}` : null,
+      prev_page_url: prevPage ? `${url_api_gateway}/courses?${prevPage}` : null,
+      links,
+      path: `${url_api_gateway}/courses`,
+    };
+
     return res.status(200).json(courses.data);
   } catch (error) {
     if (error.code === "ECONNREFUSED" || error.code === "ECONNRESET") {

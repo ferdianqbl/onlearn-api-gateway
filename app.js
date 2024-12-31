@@ -8,6 +8,7 @@ const app = express();
 // routes
 const coursesRouter = require("./app/courses/routes");
 const mentorsRouter = require("./app/mentors/routes");
+const lessonsRouter = require("./app/lessons/routes");
 const chaptersRouter = require("./app/chapters/routes");
 const mediaRouter = require("./app/media/routes");
 const ordersRouter = require("./app/orders/routes");
@@ -35,5 +36,6 @@ app.use("/courses", coursesRouter);
 // auth url routes
 app.use("/mentors", auth, mentorsRouter);
 app.use("/chapters", auth, chaptersRouter);
+app.use("/lessons", auth, lessonsRouter);
 
 module.exports = app;
